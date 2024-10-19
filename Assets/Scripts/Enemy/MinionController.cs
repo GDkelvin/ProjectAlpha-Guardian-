@@ -41,6 +41,7 @@ public class MinionController : MonoBehaviour
             if (!isAttacking)
             {
                 isAttacking = true;
+                Debug.Log(isAttacking);
                 Attack();
             }
         }
@@ -57,6 +58,7 @@ public class MinionController : MonoBehaviour
     private void Attack()
     {
         Debug.Log(attackCount);
+        
         anim.SetTrigger($"attack_{attackCount}");
         
     }
@@ -65,7 +67,7 @@ public class MinionController : MonoBehaviour
     {
         if (attackCount == 3)
         {
-            attackCount = 0;
+            attackCount = 1;
         }
         attackCount++;
         isAttacking = false;

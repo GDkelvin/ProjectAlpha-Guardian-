@@ -295,11 +295,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 300
   hpBar: {fileID: 7882056631969609693}
-  def: 100
-  atk: 16
-  res: 20
+  def: 50
+  atk: 78
+  res: 10
   atkSpeed: 3
-  movementSpeed: 1
+  movementSpeed: 2
 --- !u!1 &7882056631370643114
 GameObject:
   m_ObjectHideFlags: 0

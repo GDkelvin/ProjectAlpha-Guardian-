@@ -39,7 +39,7 @@ public class MeleeMinionStats : MonoBehaviour
         {
             gameController.HideMinionStats();
         }
-        Debug.Log(timer);
+        
     }
     private void OnMouseDown()
     {
