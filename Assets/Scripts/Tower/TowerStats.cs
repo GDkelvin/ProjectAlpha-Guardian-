@@ -17,15 +17,31 @@ public class TowerStats : MonoBehaviour
 
     public void UpdateHP(float amount)
     {
+        if (this == null)
+        {
+            return;
+        }
+            
         currentHP += amount;
         currentHP = Mathf.Clamp(currentHP, 0f, hp); //When update hp, this wont make hp overflow the max HP, ex: when healing
-        UpdateHPBar();
+        
+        if(currentHP <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            UpdateHPBar();
+        }
     }
 
    
     public void UpdateHPBar()
     {
-        float targetFillAmount = currentHP / hp;
-        hpBar.fillAmount = targetFillAmount;
+        if (this != null && hpBar != null)
+        {
+            float targetFillAmount = currentHP / hp;
+            hpBar.fillAmount = targetFillAmount;
+        }
     }
 }
