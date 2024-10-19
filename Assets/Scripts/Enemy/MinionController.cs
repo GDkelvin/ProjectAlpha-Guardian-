@@ -7,16 +7,13 @@ public class MinionController : MonoBehaviour
     MeleeMinionMovement meleeMinionMovement;
     MeleeMinionStats meleeMinionStats;
 
-    
-
-    private Animator anim; 
-
-    
+    private Animator anim;
+    private int attackCount = 1;
 
     //Raycast
     [SerializeField] private GameObject raycast;
     [SerializeField] private float raycastDistance;
-    private float characterDirection = -1;
+    private bool isAttacking = false;
 
 
     private void Awake()
@@ -29,29 +26,50 @@ public class MinionController : MonoBehaviour
     private void Start()
     {
         meleeMinionStats.SetHP();
-        
+
     }
 
     private void Update()
     {
         meleeMinionMovement.Run();
-
+        
         RaycastHit2D hit = Physics2D.Raycast(raycast.transform.position, Vector2.left, raycastDistance);
-
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.CompareTag("Tower"))
         {
             //Detected
             Debug.DrawRay(raycast.transform.position, Vector2.left * hit.distance, Color.red);
-            anim.SetTrigger("attack_1");
+            if (!isAttacking)
+            {
+                isAttacking = true;
+                Attack();
+            }
         }
-        else if(hit.collider == null)
+        else
         {
             //Not detected
+            isAttacking = false;
             Debug.DrawRay(raycast.transform.position, Vector2.left * raycastDistance, Color.green);
+
         }
+        
     }
 
-    
+    private void Attack()
+    {
+        Debug.Log(attackCount);
+        anim.SetTrigger($"attack_{attackCount}");
+        
+    }
+
+    public void AttackAnimationEnd()
+    {
+        if (attackCount == 3)
+        {
+            attackCount = 0;
+        }
+        attackCount++;
+        isAttacking = false;
+    }
     /*
     private void OnDrawGizmosSelected()
     {

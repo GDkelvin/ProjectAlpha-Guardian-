@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class MeleeMinionMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    private MeleeMinionStats meleeMinionStats;
     private Animator anim;
     
     private void Awake()
     {
+        meleeMinionStats = FindObjectOfType<MeleeMinionStats>();
         anim = GetComponent<Animator>();
     }
     
     public void Run()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        transform.position += Vector3.left * meleeMinionStats.movementSpeed * Time.deltaTime;
         anim.SetTrigger("run");
     }
 }
