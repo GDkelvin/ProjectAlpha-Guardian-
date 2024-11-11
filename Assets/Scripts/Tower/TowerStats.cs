@@ -15,6 +15,21 @@ public class TowerStats : MonoBehaviour
         currentHP = hp;
     }
 
+    private void Update()
+    {
+        Vector3 position = transform.position;
+
+        // Get camera bounds
+        float cameraHeight = Camera.main.orthographicSize * 2;
+        float cameraWidth = cameraHeight * Camera.main.aspect;
+
+        // Clamp the position to stay within the camera bounds
+        position.x = Mathf.Clamp(position.x, -cameraWidth / 2, cameraWidth / 2);
+        position.y = Mathf.Clamp(position.y, -cameraHeight / 2, cameraHeight / 2);
+
+        transform.position = position;
+    }
+
     public void UpdateHP(float amount)
     {
         if (this == null)

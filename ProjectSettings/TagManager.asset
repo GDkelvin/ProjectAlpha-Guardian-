@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tower
+  - Enemy
+  - Ground
+  - Xayah
   layers:
   - Default
   - TransparentFX
@@ -14,10 +17,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Border
+  - Ground
+  - Player
   - 
   - 
   - 
@@ -41,4 +44,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1041896703
+    locked: 0
+  - name: Ground
+    uniqueID: 2853984121
+    locked: 0
+  - name: Player+enemy
+    uniqueID: 1203968053
+    locked: 0
+  - name: UI
+    uniqueID: 2500444181
+    locked: 0
+  - name: UI2
+    uniqueID: 960697551
     locked: 0
