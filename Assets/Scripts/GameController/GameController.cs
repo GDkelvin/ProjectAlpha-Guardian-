@@ -1,22 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public GameObject showStats;
-    MinionShowStats minionStatsDisplay;
+    private MeleeMinionStats selectedMinion;
+
+    
+    private XayahMovement xayahMovement;
+
     private void Awake()
     {
-        minionStatsDisplay = FindObjectOfType<MinionShowStats>();
+        
     }
     private void Start()
     {
         showStats.SetActive(false);
+
+        xayahMovement = FindObjectOfType<XayahMovement>();
     }
 
-    public void ShowMinionStats()
+    private void Update()
     {
+        
+    }
+
+    public void ShowMinionStats(MeleeMinionStats minion)
+    {
+        selectedMinion = minion;
         showStats.SetActive(true);
     }
 
@@ -24,6 +37,13 @@ public class GameController : MonoBehaviour
     {
         showStats.SetActive(false);
     }
+
+    public MeleeMinionStats GetSelectedMinion()
+    {
+        return selectedMinion;
+    }
+
+    
 
     
 }

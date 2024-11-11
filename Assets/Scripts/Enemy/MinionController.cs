@@ -10,12 +10,15 @@ public class MinionController : MonoBehaviour
     private Animator anim;
     private int attackCount = 1;
 
+    //Set target to deal dmg to detected one
+    private GameObject target = null;
+
     //Raycast
     [SerializeField] private GameObject raycast;
     [SerializeField] private float raycastDistance;
     private bool isAttacking = false;
 
-
+    public LayerMask DetectHero;
     private void Awake()
     {
         meleeMinionMovement = GetComponent<MeleeMinionMovement>();
@@ -33,45 +36,94 @@ public class MinionController : MonoBehaviour
     {
         meleeMinionMovement.Run();
         
-        RaycastHit2D hit = Physics2D.Raycast(raycast.transform.position, Vector2.left, raycastDistance);
-        if (hit.collider != null && hit.collider.CompareTag("Tower"))
+        RaycastHit2D hit = Physics2D.Raycast(raycast.transform.position, Vector2.left, raycastDistance, DetectHero);
+        if (hit.collider != null)
         {
             //Detected
             Debug.DrawRay(raycast.transform.position, Vector2.left * hit.distance, Color.red);
-            if (!isAttacking)
+            if (hit.collider.CompareTag("Tower") || hit.collider.CompareTag("Player"))
             {
-                isAttacking = true;
-                Debug.Log(isAttacking);
-                Attack();
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                    target = hit.collider.gameObject;
+                    Debug.Log("Target detected: " + target.name);
+                    Attack();
+                }
+                meleeMinionMovement.Stop();
             }
+            
         }
         else
         {
             //Not detected
             isAttacking = false;
+            target = null;
             Debug.DrawRay(raycast.transform.position, Vector2.left * raycastDistance, Color.green);
-
+            meleeMinionMovement.ContinueMoving();
         }
-        
+
     }
 
     private void Attack()
     {
-        Debug.Log(attackCount);
+
+        if (isAttacking)
+        {
+            Debug.Log(attackCount);
+            anim.SetTrigger($"attack_{attackCount}");
+        }
         
-        anim.SetTrigger($"attack_{attackCount}");
         
     }
 
     public void AttackAnimationEnd()
     {
-        if (attackCount == 3)
+        isAttacking = false;
+        if (attackCount >= 3)
         {
-            attackCount = 1;
+            attackCount = 0;
         }
         attackCount++;
-        isAttacking = false;
     }
+
+    public void DealDamage()
+    {
+        //if tag is player: deal dmg to player
+        //if tag is tower: deal dmg to tower
+        if (target == null)
+        {
+            return;
+        }
+
+        if (target.CompareTag("Player"))
+        {
+            XayahStats xayah = target.GetComponent<XayahStats>();
+            if(xayah != null)
+            {
+                xayah.UpdateHP(-meleeMinionStats.atk);
+            }
+            else
+            {
+                Debug.LogError("XayahStats component not found on target.");
+            }
+
+        }
+        if (target.CompareTag("Tower"))
+        {
+            TowerStats tower = target.GetComponent<TowerStats>();
+            if (tower != null)
+            {
+                tower.UpdateHP(-meleeMinionStats.atk);
+            }
+            else
+            {
+                Debug.LogError("XayahStats component not found on target.");
+            }
+        }
+        target = null;
+    }
+
     /*
     private void OnDrawGizmosSelected()
     {

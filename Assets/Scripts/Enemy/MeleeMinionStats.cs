@@ -20,9 +20,11 @@ public class MeleeMinionStats : MonoBehaviour
     [SerializeField] public float atkSpeed;
     [SerializeField] public float movementSpeed;
 
+    public bool isAlive = true;
+    
     private MinionShowStats minionShowStats;
     private GameController gameController;
-    float timer;
+    
 
     //detect Tower
     TowerStats tower;
@@ -34,19 +36,15 @@ public class MeleeMinionStats : MonoBehaviour
     }
     private void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            gameController.HideMinionStats();
-        }
-        
     }
+    
     private void OnMouseDown()
     {
-        timer = 5f;
-        minionShowStats.UpdateStats(this); 
-        gameController.ShowMinionStats();
-        
+        if (currentHP > 0)
+        {
+            gameController.ShowMinionStats(this);
+            minionShowStats.UpdateStats(this);
+        }
     }
 
     //HP system
@@ -58,10 +56,26 @@ public class MeleeMinionStats : MonoBehaviour
 
     public void UpdateHP(float amount)
     {
+        if (!isAlive) return;
+
         currentHP += amount;
         currentHP = Mathf.Clamp(currentHP, 0f, hp); //When update hp, this wont make hp overflow the max HP, ex: when healing
         UpdateHPBar();
-        minionShowStats.UpdateStats(this);
+
+        if (gameController.GetSelectedMinion() == this)
+        {
+            minionShowStats.UpdateStats(this);
+        }
+
+        if (currentHP <= 0f)
+        {
+            isAlive = false;
+            if (gameController.GetSelectedMinion() == this)
+            {
+                gameController.HideMinionStats();
+            }
+            Destroy(gameObject); 
+        }
     }
 
     public void UpdateHPBar()
@@ -72,9 +86,31 @@ public class MeleeMinionStats : MonoBehaviour
 
     public void DamageTower()
     {
+        if (!isAlive) return;
         tower.UpdateHP(-atk);
     }
     //Def
     
+    public float ReducedDmg()
+    {
+        float G, H; //H is dmg received, G is dmg reduced
+        G = def / (def + 100);
+        H = 1 - G;
+        return H;
+    }
+
+    //Trong thương
+    public float Vul()
+    {
+        float vul = 2f; //Trong thương 25%
+        return vul;
+    }
+
+    //Miễn st
+    public float Res()
+    {
+        float r = 1 - res; //st nhận : 0.75
+        return r;
+    }
 
 }

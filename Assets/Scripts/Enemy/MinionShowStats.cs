@@ -15,9 +15,12 @@ public class MinionShowStats : MonoBehaviour
     public Image hpBar;
 
     
+
     public void UpdateStats(MeleeMinionStats stats)
     {
-        Hp.text = stats.currentHP + "/" + stats.hp; ;
+        if (stats == null || !stats.isAlive) return;
+
+        Hp.text = $"{Mathf.FloorToInt(stats.currentHP)}/{Mathf.FloorToInt(stats.hp)}";
         Atk.text = Convert.ToString(stats.atk);
         Def.text = Convert.ToString(stats.def);
         Res.text = Convert.ToString(stats.res);

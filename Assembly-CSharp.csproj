@@ -56,18 +56,26 @@
     <Analyzer Include="D:\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Character\Xayah\Feather.cs" />
     <Compile Include="Assets\Scripts\Character\Xayah\MousePosition2D.cs" />
     <Compile Include="Assets\Scripts\Character\Xayah\Selected.cs" />
+    <Compile Include="Assets\Scripts\Character\Xayah\SpawnCharacter.cs" />
     <Compile Include="Assets\Scripts\Character\Xayah\XayahAttack.cs" />
     <Compile Include="Assets\Scripts\Character\Xayah\XayahMovement.cs" />
+    <Compile Include="Assets\Scripts\Character\Xayah\XayahStats.cs" />
+    <Compile Include="Assets\Scripts\Character\Xayah\XayahUltimate.cs" />
     <Compile Include="Assets\Scripts\Character\Xayah\hotkey.cs" />
     <Compile Include="Assets\Scripts\Enemy\MeleeMinionMovement.cs" />
     <Compile Include="Assets\Scripts\Enemy\MeleeMinionStats.cs" />
     <Compile Include="Assets\Scripts\Enemy\MinionController.cs" />
     <Compile Include="Assets\Scripts\Enemy\MinionShowStats.cs" />
+    <Compile Include="Assets\Scripts\GameController\BackgrounClickHandler.cs" />
+    <Compile Include="Assets\Scripts\GameController\ChangeBorder.cs" />
     <Compile Include="Assets\Scripts\GameController\ClickHandler.cs" />
     <Compile Include="Assets\Scripts\GameController\GameController.cs" />
     <Compile Include="Assets\Scripts\GameController\MouseInputProvider.cs" />
+    <Compile Include="Assets\Scripts\GameController\SkillPoint.cs" />
+    <Compile Include="Assets\Scripts\GameController\SkillPoints.cs" />
     <Compile Include="Assets\Scripts\Tower\TowerStats.cs" />
   </ItemGroup>
   <ItemGroup>

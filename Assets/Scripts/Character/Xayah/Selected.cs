@@ -29,6 +29,7 @@ public class Selected : MonoBehaviour
             OnMouseDown();
         }
 
+
         if (isSelected && !isSpawned && Input.GetKeyDown(KeyCode.Mouse1))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,7 +57,7 @@ public class Selected : MonoBehaviour
 
     private void OnMouseDown()
     {
-
+        Debug.Log("clicked");
         if (!isSelected)
         {
             isSelected = true;
@@ -101,4 +102,6 @@ public class Selected : MonoBehaviour
         }
         
     }
+
+   
 }
